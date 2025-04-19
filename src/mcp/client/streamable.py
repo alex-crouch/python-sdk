@@ -54,10 +54,8 @@ async def streamable_client(
         return
 
     # ░░░░░ 2. Build the in‑process queues exposed to the caller ░░░░░
-    rs_writer, rs_reader = anyio.create_memory_object_stream[
-        types.JSONRPCMessage | Exception
-    ](0)
-    ws_writer, ws_reader = anyio.create_memory_object_stream
+    rs_writer, rs_reader = anyio.create_memory_object_stream(0)
+    ws_writer, ws_reader = anyio.create_memory_object_stream(0)
 
     # Small helper for decoding JSON (single msg or list) and pushing to reader
     async def _push_from_json(payload: str) -> None:
